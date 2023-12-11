@@ -1,0 +1,4 @@
+https://github.com/seg/2016-ml-contest/
+	https://github.com/seg/2016-ml-contest/blob/master/Facies_classification.ipynb
+
+Classificar os dados de poços com qualquer outra ferramenta de classificação
