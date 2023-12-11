@@ -1,3 +1,4 @@
+import os
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,6 +8,10 @@ from pandas import set_option
 from sklearn import preprocessing, svm
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
+import tensorflow as tf
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 from functions import (
     accuracy,
@@ -15,6 +20,7 @@ from functions import (
     label_facies,
     make_facies_log_plot,
     plot_confusion_matrix,
+    split_train_test_with_tensorflow,
 )
 
 set_option("display.max_rows", 10)
@@ -107,7 +113,7 @@ feature_vectors = training_data.drop(
 scaler = preprocessing.StandardScaler().fit(feature_vectors)
 scaled_features = scaler.transform(feature_vectors)
 
-X_train, X_test, y_train, y_test = train_test_split(
+X_train, X_test, y_train, y_test = split_train_test_with_tensorflow(
     scaled_features, correct_facies_labels, test_size=0.25, random_state=42
 )
 

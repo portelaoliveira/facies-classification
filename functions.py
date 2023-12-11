@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+import tensorflow as tf
+from typing import Tuple
 
 
 def make_facies_log_plot(logs, facies_colors, name_image):
@@ -36,17 +38,19 @@ def make_facies_log_plot(logs, facies_colors, name_image):
     cax = divider.append_axes("right", size="20%", pad=0.05)
     cbar = plt.colorbar(im, cax=cax)
     cbar.set_label(
-        (17 * " ").join([
-            " SS ",
-            "CSiS",
-            "FSiS",
-            "SiSh",
-            " MS ",
-            " WS ",
-            " D  ",
-            " PS ",
-            " BS ",
-        ])
+        (17 * " ").join(
+            [
+                " SS ",
+                "CSiS",
+                "FSiS",
+                "SiSh",
+                " MS ",
+                " WS ",
+                " D  ",
+                " PS ",
+                " BS ",
+            ]
+        )
     )
     cbar.set_ticks(range(0, 1))
     cbar.set_ticklabels("")
@@ -153,17 +157,19 @@ def compare_facies_plot(logs, compadre, facies_colors, img_name):
     cax = divider.append_axes("right", size="20%", pad=0.05)
     cbar = plt.colorbar(im2, cax=cax)
     cbar.set_label(
-        (17 * " ").join([
-            " SS ",
-            "CSiS",
-            "FSiS",
-            "SiSh",
-            " MS ",
-            " WS ",
-            " D  ",
-            " PS ",
-            " BS ",
-        ])
+        (17 * " ").join(
+            [
+                " SS ",
+                "CSiS",
+                "FSiS",
+                "SiSh",
+                " MS ",
+                " WS ",
+                " D  ",
+                " PS ",
+                " BS ",
+            ]
+        )
     )
     cbar.set_ticks(range(0, 1))
     cbar.set_ticklabels("")
@@ -198,3 +204,28 @@ def compare_facies_plot(logs, compadre, facies_colors, img_name):
 
     plt.savefig(f"imgs/{img_name}.png")
     plt.close()
+
+
+def split_train_test_with_tensorflow(
+    features: tf.Tensor,
+    labels: tf.Tensor,
+    test_size: float,
+    random_state: int = 1729,
+) -> Tuple[tf.Tensor, tf.Tensor, tf.Tensor, tf.Tensor]:
+
+    # Generate random masks
+    random = tf.random.uniform(
+        shape=(tf.shape(features)[0],), seed=random_state
+    )
+    train_mask = random >= test_size
+    test_mask = random < test_size
+
+    # Gather values
+    train_features, train_labels = tf.boolean_mask(
+        features, mask=train_mask
+    ), tf.boolean_mask(labels, mask=train_mask)
+    test_features, test_labels = tf.boolean_mask(
+        features, mask=test_mask
+    ), tf.boolean_mask(labels, mask=test_mask)
+
+    return train_features, test_features, train_labels, test_labels
