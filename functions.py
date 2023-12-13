@@ -1,10 +1,11 @@
+from typing import Tuple
+
 import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 import tensorflow as tf
-from typing import Tuple
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 
 def make_facies_log_plot(logs, facies_colors, name_image):
@@ -38,19 +39,17 @@ def make_facies_log_plot(logs, facies_colors, name_image):
     cax = divider.append_axes("right", size="20%", pad=0.05)
     cbar = plt.colorbar(im, cax=cax)
     cbar.set_label(
-        (17 * " ").join(
-            [
-                " SS ",
-                "CSiS",
-                "FSiS",
-                "SiSh",
-                " MS ",
-                " WS ",
-                " D  ",
-                " PS ",
-                " BS ",
-            ]
-        )
+        (17 * " ").join([
+            " SS ",
+            "CSiS",
+            "FSiS",
+            "SiSh",
+            " MS ",
+            " WS ",
+            " D  ",
+            " PS ",
+            " BS ",
+        ])
     )
     cbar.set_ticks(range(0, 1))
     cbar.set_ticklabels("")
@@ -157,19 +156,17 @@ def compare_facies_plot(logs, compadre, facies_colors, img_name):
     cax = divider.append_axes("right", size="20%", pad=0.05)
     cbar = plt.colorbar(im2, cax=cax)
     cbar.set_label(
-        (17 * " ").join(
-            [
-                " SS ",
-                "CSiS",
-                "FSiS",
-                "SiSh",
-                " MS ",
-                " WS ",
-                " D  ",
-                " PS ",
-                " BS ",
-            ]
-        )
+        (17 * " ").join([
+            " SS ",
+            "CSiS",
+            "FSiS",
+            "SiSh",
+            " MS ",
+            " WS ",
+            " D  ",
+            " PS ",
+            " BS ",
+        ])
     )
     cbar.set_ticks(range(0, 1))
     cbar.set_ticklabels("")

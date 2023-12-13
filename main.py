@@ -1,4 +1,5 @@
 import os
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,8 +8,6 @@ import seaborn as sns
 from pandas import set_option
 from sklearn import preprocessing, svm
 from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import train_test_split
-import tensorflow as tf
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -134,7 +133,7 @@ classes = {
 }
 
 
-# Build confusion matrix
+# # Build confusion matrix
 cf_matrix = confusion_matrix(y_test, predicted_labels)
 
 plot_confusion_matrix(cf_matrix, classes, "confusion_matrix")
